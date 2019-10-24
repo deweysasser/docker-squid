@@ -7,7 +7,7 @@ Squid proxy is on port 3128, transparent http on 3129, transparent https on 3127
 # Running
 
 ```bash
-docker run -d --name squid --net host -v /etc/squid/whitelist.txt:/etc/squid/whitelist.txt squid 
+docker run -d --name squid --net host -v /etc/squid/whitelist.txt:/etc/squid/whitelist.txt deweysasser/squid:latest 
 iptables -t nat -A PREROUTING -i $eth0 -p tcp --dport  80 -j REDIRECT --to-port 3129
 iptables -t nat -A PREROUTING -i $eth0 -p tcp --dport 443 -j DNAT --to 3127
 ```
