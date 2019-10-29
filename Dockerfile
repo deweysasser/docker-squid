@@ -8,7 +8,7 @@ RUN apk add --no-cache squid ca-certificates openssl && \
     openssl req -newkey rsa:2048 -nodes -keyout /etc/squid/ssl/key.pem \
     -x509 -days 3650 \
     -subj "/C=US/ST=Massachusetts/L=Boston/O=Squid Proxy/OU=/CN=squid" \
-    -out /etc/squid/sslcertificate.pem
+    -out /etc/squid/ssl/certificate.pem
 
 ADD run-squid.sh /usr/bin/run-squid
 ADD squid.conf /etc/squid/squid.conf
