@@ -12,7 +12,7 @@ iptables -t nat -A PREROUTING -i $eth0 -p tcp --dport  80 -j REDIRECT --to-port 
 iptables -t nat -A PREROUTING -i $eth0 -p tcp --dport 443 -j DNAT --to 3127
 ```
 
-## Whitelisting sites
+## Whitelisting specific sites
 
 The file `whitelist.txt` should contain a list of domain names with leading period which will be allowed for both http and https.
 
@@ -22,6 +22,12 @@ Example:
 .google.com
 .ubuntu.com
 ```
+
+## Allowing all traffic (i.e. just log)
+
+If you want to allow all traffic through, set the environment variable `ALLOW_ALL_TRAFFIC` to `true`.
+
+This will configure squid to ignore the whitelist and pass all requests.  It will still log all traffic passed.
 
 ## Building
 

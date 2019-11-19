@@ -11,6 +11,8 @@ RUN apk add --no-cache squid ca-certificates openssl && \
     -out /etc/squid/ssl/certificate.pem
 
 ADD run-squid.sh /usr/bin/run-squid
-ADD squid.conf /etc/squid/squid.conf
+ADD squid.conf /etc/squid/squid.conf.templ
 
-CMD dockerize -stdout /var/log/squid/access.log -poll /usr/bin/run-squid
+ENV ALLOW_ALL_TRAFFIC=false
+
+CMD dockerize -template  /etc/squid/squid.conf.templ:/etc/squid/squid.conf -stdout /var/log/squid/access.log -poll /usr/bin/run-squid
