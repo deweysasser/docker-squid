@@ -4,7 +4,7 @@ FROM jwilder/dockerize
 # this would be important to secure
 
 RUN apk add --no-cache squid ca-certificates openssl && \
-    mkdir -p /var/spool/squid /var/cache/squid /var/log/squid /etc/squid/ssl; touch /etc/squid/whitelist.txt && \
+    mkdir -p /var/spool/squid /var/cache/squid /var/log/squid /etc/squid/ssl; touch /etc/squid/whitelist.txt /etc/squid/blocklist.txt && \
     openssl req -newkey rsa:2048 -nodes -keyout /etc/squid/ssl/key.pem \
     -x509 -days 3650 \
     -subj "/C=US/ST=Massachusetts/L=Boston/O=Squid Proxy/OU=/CN=squid" \

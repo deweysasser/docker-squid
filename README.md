@@ -23,6 +23,25 @@ Example:
 .ubuntu.com
 ```
 
+## Blocklisting specific sites
+
+The file `blocklist.txt` should contain a list of domain names with leading period which will be blocked for both http and https. The blocklist takes precedence over both the whitelist and the allow-all mode.
+
+To use a blocklist, mount it when running the container:
+
+```bash
+docker run -d --name squid --net host -v /etc/squid/blocklist.txt:/etc/squid/blocklist.txt deweysasser/squid:latest
+```
+
+Example blocklist.txt:
+
+```text
+.facebook.com
+.tiktok.com
+```
+
+If the file is not mounted, an empty blocklist file is created by default (no domains blocked).
+
 ## Allowing all traffic (i.e. just log)
 
 If you want to allow all traffic through, set the environment variable `ALLOW_ALL_TRAFFIC` to `true`.
