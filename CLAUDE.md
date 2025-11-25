@@ -10,7 +10,13 @@ This is a Docker-containerized Squid proxy server with SSL support, designed for
 
 Build the Docker image:
 ```bash
-docker build -t squid .
+make build
+# or: docker build -t squid .
+```
+
+Run tests:
+```bash
+make test
 ```
 
 Run the container with whitelist:
@@ -22,6 +28,14 @@ Run in allow-all mode (just logging, no filtering):
 ```bash
 docker run -d --name squid --net host -e ALLOW_ALL_TRAFFIC=true deweysasser/squid:latest
 ```
+
+## Testing
+
+The test suite (`test.sh`) validates all configuration permutations:
+- 8 test scenarios covering combinations of whitelist/blocklist presence and ALLOW_ALL_TRAFFIC setting
+- Tests verify blocklist precedence, whitelist filtering, and allow-all behavior
+- Automatically builds image, runs containers, and tests HTTP requests through proxy
+- GitHub Actions runs tests on every push to master/main branches
 
 ## Architecture
 
@@ -75,6 +89,9 @@ The container generates a self-signed certificate during build (Dockerfile:8-11)
 - **run-squid.sh**: Startup script that removes stale PID and runs Squid in foreground with debug level 9
 - **whitelist.txt**: User-provided file mounted at runtime (not in repo), empty by default
 - **blocklist.txt**: User-provided file mounted at runtime (not in repo), empty by default
+- **test.sh**: Comprehensive test script that validates all configuration permutations
+- **Makefile**: Build automation with targets for build, test, clean, and help
+- **.github/workflows/test.yml**: GitHub Actions workflow for CI testing
 
 ## Important Notes
 

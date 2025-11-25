@@ -54,8 +54,34 @@ This will configure squid to ignore the whitelist and pass all requests.  It wil
 docker build -t squid .
 ```
 
+Or use the Makefile:
+
+```bash
+make build
+```
+
 The build will generate and embed an SSL certificate.  This certificate is not used for anything other than
 allowing squid to run.
+
+## Testing
+
+Run the test suite to verify all whitelist/blocklist permutations:
+
+```bash
+make test
+```
+
+The test suite will:
+- Build the Docker image
+- Test 8 different configurations (combinations of whitelist/blocklist with ALLOW_ALL_TRAFFIC on/off)
+- Verify blocklist takes precedence over whitelist and allow-all modes
+- Report pass/fail results
+
+Run both build and test:
+
+```bash
+make all
+```
 
 ## Notes
 
